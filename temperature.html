@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h3>Thông tin nhiệt độ</h3>
+    <label for="temp">Nhập nhiệt độ (Độ C)</label>
+    <input type="text" id="temp" placeholder="Nhiệt độ" oninput="getTemperature()">
+    <div id="result"></div>
+    <script>
+        class Temperature{
+            temp;
+            constructor(temp){
+                this.temp = temp;
+            }
+            getFahrenheit(){
+                return this.temp * (9/5) + 32;
+            }
+            getKenvin(){
+                return this.temp + 273.15;
+            }
+            displayTemp(){
+                return `
+                    <h3>Kết quả</h3>
+                    Nhiệt độ hiện tại là: ${this.temp} (độ C)<br>
+                    Nhiệt độ chuyển qua Fahrenheit là: ${this.getFahrenheit()} (độ F)<br>
+                    Nhiệt độ chuyển qua Kenvin là: ${this.getKenvin()} (độ K)
+                `
+            }
+        }
+        function getTemperature(){
+            let temp = parseFloat(document.getElementById("temp").value);
+            if(isNaN(temp) || temp<-273){
+                document.getElementById("result").innerHTML = ("Yêu cầu nhập thông tin nhiệt độ phù hợp!!");
+                return;
+            }
+            let temps = new Temperature(temp);
+            document.getElementById("result").innerHTML = temps.displayTemp();
+        }
+    </script>
+</body>
+</html>
